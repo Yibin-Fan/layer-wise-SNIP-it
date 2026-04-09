@@ -15,9 +15,8 @@ def ensure_current_directory():
     ensures we run from main directory even when we run testruns
     """
 
-    current_dir = os.getcwd()
-    base_name = PROJ_NAME
-    os.chdir(os.path.join(current_dir.split(base_name)[0], base_name))
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+    os.chdir(project_root)
 
 
 def setup_directories():
