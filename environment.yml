@@ -1,4 +1,4 @@
-name: snapit-4060
+name: snapit-l4
 channels:
   - pytorch
   - nvidia
@@ -6,14 +6,15 @@ channels:
   - defaults
 dependencies:
   - python=3.10
-  - pytorch=2.2.2
-  - torchvision=0.17.2
-  - pytorch-cuda=11.8
+  - pytorch=2.4.1
+  - torchvision=0.19.1
+  - pytorch-cuda=12.1
   - pip
   - pip:
       - numpy==1.26.4
       - matplotlib==3.8.4
-      - networkx==2.8.8
-      - Markdown==3.6
-      - scikit-learn==1.4.2
-      - tensorboard==2.16.2
+      - networkx==3.3
+      - Markdown==3.7
+      - scikit-learn==1.5.2
+      - tensorboard==2.17.1
+      - requests==2.32.3
