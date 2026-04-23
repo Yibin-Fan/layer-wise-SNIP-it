@@ -2,7 +2,7 @@
 
 需要跑的对比实验有三组：
 
-- `VGG16 + SNAPit` vs `VGG16 + LayerWiseSNAPit`
+- `VGG16 + SNAPit` vs `VGG16 + AdaptiveLayerWiseSNAPit`
 - `ResNet18 + SNIPit` vs `ResNet18 + LayerWiseSNIPit`
 - `ResNet18 + SNIPitDuring` vs `ResNet18 + LayerWiseSNIPitDuring`
 
@@ -81,13 +81,13 @@ python main.py \
 python main.py \
   --model VGG16 \
   --data_set CIFAR10 \
-  --prune_criterion LayerWiseSNAPit \
+  --prune_criterion AdaptiveLayerWiseSNAPit \
   --pruning_limit 0.93 \
   --epochs 80 \
   --device cuda \
   --batch_size 256 \
   --seed 333 \
-  --run_name _vgg16_layerwise_snapit93
+  --run_name _vgg16_adaptive_layerwise_snapit93
 ```
 
 ### 2.3 实验二：ResNet18 unstructured pruning before training
@@ -161,7 +161,7 @@ python main.py \
 ```bash
 ls -td gitignored/results/*_vgg16_empty | head -n 1
 ls -td gitignored/results/*_vgg16_snapit93 | head -n 1
-ls -td gitignored/results/*_vgg16_layerwise_snapit93 | head -n 1
+ls -td gitignored/results/*_vgg16_adaptive_layerwise_snapit93 | head -n 1
 ls -td gitignored/results/*_resnet18_empty | head -n 1
 ls -td gitignored/results/*_resnet18_snipit98 | head -n 1
 ls -td gitignored/results/*_resnet18_layerwise_snipit98 | head -n 1
@@ -179,6 +179,7 @@ ls -td gitignored/results/*_resnet18_layerwise_snipitduring98 | head -n 1
 | resnet18 empty | N/A | 79.66 | N/A | N/A | 0.00 | 0.00 | N/A |
 | VGG16 structured before training | SNAPit | 87.82 | 84.93 | 2.89 | 99.24 | 93.01 | 10.51 |
 | VGG16 structured before training | LayerWiseSNAPit | 87.82 | 69.35 | 18.48 | 99.51 | 93.05 | 194.82 |
+| VGG16 structured before training | AdaptiveLayerWiseSNAPit | 87.82 |  |  |  |  |  |
 | ResNet18 unstructured before training | SNIPit | 79.66 | 76.02 | 3.64 | 97.96 | 0.00 | 1.00 |
 | ResNet18 unstructured before training | LayerWiseSNIPit | 79.66 | 66.43 | 13.23 | 97.96 | 0.00 | 1.00 |
 | ResNet18 unstructured during training | SNIPitDuring | 79.66 | 79.67 | -0.01 | 97.96 | 0.00 | 1.00 |

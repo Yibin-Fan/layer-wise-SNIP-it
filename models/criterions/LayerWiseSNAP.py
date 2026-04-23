@@ -15,6 +15,7 @@ class LayerWiseSNAP(SNAP):
 
     def handle_pruning(self, all_scores, grads_abs, norm_factor, percentage):
         summed_weights = sum([np.prod(x.shape) for name, x in self.model.named_parameters() if "weight" in name])
+        keep_vectors = self._get_layer_keep_vectors(grads_abs, norm_factor, percentage)
 
         summed_pruned = 0
         toggle_row_column = True
@@ -26,13 +27,7 @@ class LayerWiseSNAP(SNAP):
             corresponding_module: nn.Module = \
                 [val for key, val in self.model.named_modules() if key == name.split(".weight")[0]][0]
 
-            binary_keep_neuron_vector = self._get_layer_keep_vector(
-                grad=grad,
-                norm_factor=norm_factor,
-                percentage=percentage,
-                first=first,
-                last=last,
-            )
+            binary_keep_neuron_vector = keep_vectors[identification].view_as(grad)
 
             if first or last:
                 length_nonzero = self.handle_outer_layers(binary_keep_neuron_vector,
@@ -70,10 +65,13 @@ class LayerWiseSNAP(SNAP):
         self.model.apply_weight_mask()
         self.cut_lonely_connections()
 
-    def _get_layer_keep_vector(self, grad, norm_factor, percentage, first, last):
-        if (first or last) and not self.model._outer_layer_pruning:
-            return torch.ones_like(grad).float().to(self.device)
+    def _get_layer_keep_vectors(self, grads_abs, norm_factor, percentage):
+        keep_vectors = {}
+        for (identification, name), grad in grads_abs.items():
+            keep_vectors[identification] = self._get_layer_keep_vector(grad, norm_factor, percentage)
+        return keep_vectors
 
+    def _get_layer_keep_vector(self, grad, norm_factor, percentage):
         scores = (grad / norm_factor).detach().flatten()
         keep_count = int(scores.numel() * (1 - percentage))
         if keep_count < 1:
