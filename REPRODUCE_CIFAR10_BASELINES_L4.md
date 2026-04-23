@@ -3,8 +3,8 @@
 需要跑的对比实验有三组：
 
 - `VGG16 + SNAPit` vs `VGG16 + AdaptiveLayerWiseSNAPit`
-- `ResNet18 + SNIPit` vs `ResNet18 + LayerWiseSNIPit`
-- `ResNet18 + SNIPitDuring` vs `ResNet18 + LayerWiseSNIPitDuring`
+- `ResNet18 + SNIPit` vs `ResNet18 + AdaptiveLayerWiseSNIPit`
+- `ResNet18 + SNIPitDuring` vs `ResNet18 + AdaptiveLayerWiseSNIPitDuring`
 
 为了计算 `accuracy drop`，额外跑两个未剪枝 reference：
 
@@ -120,6 +120,20 @@ python main.py \
   --run_name _resnet18_layerwise_snipit98
 ```
 
+```bash
+python main.py \
+  --model ResNet18 \
+  --data_set CIFAR10 \
+  --prune_criterion AdaptiveLayerWiseSNIPit \
+  --pruning_limit 0.98 \
+  --outer_layer_pruning \
+  --epochs 80 \
+  --device cuda \
+  --batch_size 256 \
+  --seed 333 \
+  --run_name _resnet18_adaptive_layerwise_snipit98
+```
+
 ### 2.4 实验三：ResNet18 unstructured pruning during training
 
 ```bash
@@ -154,6 +168,22 @@ python main.py \
   --run_name _resnet18_layerwise_snipitduring98
 ```
 
+```bash
+python main.py \
+  --model ResNet18 \
+  --data_set CIFAR10 \
+  --prune_criterion AdaptiveLayerWiseSNIPitDuring \
+  --pruning_limit 0.98 \
+  --outer_layer_pruning \
+  --epochs 80 \
+  --prune_delay 4 \
+  --prune_freq 4 \
+  --device cuda \
+  --batch_size 256 \
+  --seed 333 \
+  --run_name _resnet18_adaptive_layerwise_snipitduring98
+```
+
 如果 `batch_size=256` 显存不足，就改成 `128`。
 
 ## 3. 找到结果目录
@@ -165,8 +195,10 @@ ls -td gitignored/results/*_vgg16_adaptive_layerwise_snapit93 | head -n 1
 ls -td gitignored/results/*_resnet18_empty | head -n 1
 ls -td gitignored/results/*_resnet18_snipit98 | head -n 1
 ls -td gitignored/results/*_resnet18_layerwise_snipit98 | head -n 1
+ls -td gitignored/results/*_resnet18_adaptive_layerwise_snipit98 | head -n 1
 ls -td gitignored/results/*_resnet18_snipitduring98 | head -n 1
 ls -td gitignored/results/*_resnet18_layerwise_snipitduring98 | head -n 1
+ls -td gitignored/results/*_resnet18_adaptive_layerwise_snipitduring98 | head -n 1
 ```
 
 ## 4. 结果表格
@@ -182,8 +214,10 @@ ls -td gitignored/results/*_resnet18_layerwise_snipitduring98 | head -n 1
 | VGG16 structured before training | AdaptiveLayerWiseSNAPit | 87.82 |  |  |  |  |  |
 | ResNet18 unstructured before training | SNIPit | 79.66 | 76.02 | 3.64 | 97.96 | 0.00 | 1.00 |
 | ResNet18 unstructured before training | LayerWiseSNIPit | 79.66 | 66.43 | 13.23 | 97.96 | 0.00 | 1.00 |
+| ResNet18 unstructured before training | AdaptiveLayerWiseSNIPit | 79.66 |  |  |  |  |  |
 | ResNet18 unstructured during training | SNIPitDuring | 79.66 | 79.67 | -0.01 | 97.96 | 0.00 | 1.00 |
 | ResNet18 unstructured during training | LayerWiseSNIPitDuring | 79.66 | 77.63 | 2.03 | 97.96 | 0.00 | 1.00 |
+| ResNet18 unstructured during training | AdaptiveLayerWiseSNIPitDuring | 79.66 |  |  |  |  |  |
 
 ## 5. 对照目标
 
