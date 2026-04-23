@@ -1,0 +1,149 @@
+
+########## INDIVIDUAL RUN RESULTS ##########
+
+
+===== BASELINE: VGG16 Empty =====
+Run name:            2026-04-23_10.17.21_vgg16_empty
+Run dir:             gitignored/results/2026-04-23_10.17.21_vgg16_empty
+Best acc (%):        87.82
+Final acc (%):       86.76
+Final loss:          0.5684
+Weight sparsity (%): 0.00
+Node sparsity (%):   0.00
+FLOPs/sample:        363520000
+Cumulative FLOPs:    1.44e+15
+GPU time (s):        21.53
+Batch time (s):      0.0070
+RAM footprint (MB):  1036.09
+Disk log10 size:     21.2674
+
+===== BASELINE: ResNet18 Empty =====
+Run name:            2026-04-23_10.28.09_resnet18_empty
+Run dir:             gitignored/results/2026-04-23_10.28.09_resnet18_empty
+Best acc (%):        79.66
+Final acc (%):       79.12
+Final loss:          0.8526
+Weight sparsity (%): 0.00
+Node sparsity (%):   0.00
+FLOPs/sample:        38800136
+Cumulative FLOPs:    1.54e+14
+GPU time (s):        16.79
+Batch time (s):      0.0058
+RAM footprint (MB):  254.90
+Disk log10 size:     19.8014
+
+===== METHOD: VGG16 SNAPit =====
+Run name:            2026-04-23_10.37.39_vgg16_snapit93
+Run dir:             gitignored/results/2026-04-23_10.37.39_vgg16_snapit93
+Best acc (%):        84.93
+Final acc (%):       84.13
+Final loss:          0.6935
+Weight sparsity (%): 99.24
+Node sparsity (%):   93.01
+FLOPs/sample:        34587376
+Cumulative FLOPs:    1.37e+14
+GPU time (s):        17.14
+Batch time (s):      0.0064
+RAM footprint (MB):  25.04
+Disk log10 size:     16.3863
+
+===== METHOD: VGG16 Layer-wise SNAPit =====
+Run name:            2026-04-23_10.46.45_vgg16_layerwise_snapit93
+Run dir:             gitignored/results/2026-04-23_10.46.45_vgg16_layerwise_snapit93
+Best acc (%):        69.35
+Final acc (%):       67.88
+Final loss:          1.1006
+Weight sparsity (%): 99.51
+Node sparsity (%):   93.05
+FLOPs/sample:        1865962
+Cumulative FLOPs:    7.40e+12
+GPU time (s):        15.76
+Batch time (s):      0.0059
+RAM footprint (MB):  22.37
+Disk log10 size:     15.9555
+
+===== METHOD: ResNet18 SNIPit =====
+Run name:            2026-04-23_10.55.03_resnet18_snipit98
+Run dir:             gitignored/results/2026-04-23_10.55.03_resnet18_snipit98
+Best acc (%):        76.02
+Final acc (%):       74.44
+Final loss:          1.0858
+Weight sparsity (%): 97.96
+Node sparsity (%):   0.00
+FLOPs/sample:        38800136
+Cumulative FLOPs:    1.54e+14
+GPU time (s):        13.72
+Batch time (s):      0.0053
+RAM footprint (MB):  254.43
+Disk log10 size:     15.9114
+
+===== METHOD: ResNet18 Layer-wise SNIPit =====
+Run name:            2026-04-23_11.05.21_resnet18_layerwise_snipit98
+Run dir:             gitignored/results/2026-04-23_11.05.21_resnet18_layerwise_snipit98
+Best acc (%):        66.43
+Final acc (%):       65.62
+Final loss:          1.2788
+Weight sparsity (%): 97.96
+Node sparsity (%):   0.00
+FLOPs/sample:        38800136
+Cumulative FLOPs:    1.54e+14
+GPU time (s):        12.72
+Batch time (s):      0.0047
+RAM footprint (MB):  255.74
+Disk log10 size:     15.9114
+
+===== METHOD: ResNet18 SNIPitDuring =====
+Run name:            2026-04-23_11.16.29_resnet18_snipitduring98
+Run dir:             gitignored/results/2026-04-23_11.16.29_resnet18_snipitduring98
+Best acc (%):        79.67
+Final acc (%):       79.04
+Final loss:          0.9667
+Weight sparsity (%): 97.96
+Node sparsity (%):   0.00
+FLOPs/sample:        38800136
+Cumulative FLOPs:    1.54e+14
+GPU time (s):        20.69
+Batch time (s):      0.0067
+RAM footprint (MB):  256.78
+Disk log10 size:     15.9114
+
+===== METHOD: ResNet18 Layer-wise SNIPitDuring =====
+Run name:            2026-04-23_11.27.07_resnet18_layerwise_snipitduring98
+Run dir:             gitignored/results/2026-04-23_11.27.07_resnet18_layerwise_snipitduring98
+Best acc (%):        77.63
+Final acc (%):       58.84
+Final loss:          1.2921
+Weight sparsity (%): 97.96
+Node sparsity (%):   0.00
+FLOPs/sample:        38800136
+Cumulative FLOPs:    1.54e+14
+GPU time (s):        14.45
+Batch time (s):      0.0051
+RAM footprint (MB):  354.20
+Disk log10 size:     15.9114
+
+================ FINAL TABLE ================
+
+Group                       Method                    Reference
+Acc (%)Method
+Acc (%)Accuracy
+Drop (pp)Weight
+Sparsity (%)Node
+Sparsity (%)FLOPs
+Reduction (x)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+VGG16 structured
+before trainingSNAPit                    87.82         84.93         2.89            99.24             93.01           10.51             
+VGG16 structured
+before trainingLayer-wise SNAPit         87.82         69.35         18.48           99.51             93.05           194.82            
+ResNet18 unstructured
+before trainingSNIPit                    79.66         76.02         3.64            97.96             0.00            1.00              
+ResNet18 unstructured
+before trainingLayer-wise SNIPit         79.66         66.43         13.23           97.96             0.00            1.00              
+ResNet18 unstructured
+during trainingSNIPitDuring              79.66         79.67         -0.01           97.96             0.00            1.00              
+ResNet18 unstructured
+during trainingLayer-wise SNIPitDuring   79.66         77.63         2.03            97.96             0.00            1.00              
+
+=============================================
+

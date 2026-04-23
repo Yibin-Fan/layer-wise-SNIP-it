@@ -175,12 +175,14 @@ ls -td gitignored/results/*_resnet18_layerwise_snipitduring98 | head -n 1
 
 | Group | Method | Reference Acc (%) | Method Acc (%) | Accuracy Drop (pp) | Weight Sparsity (%) | Node Sparsity (%) | FLOPs Reduction (x) |
 |---|---|---:|---:|---:|---:|---:|---:|
-| VGG16 structured before training | SNAPit | 88.20 | 84.93 | 3.27 | 99.25 | 93.01 | 9.87 |
-| VGG16 structured before training | LayerWiseSNAPit | 88.20 |  |  |  |  |  |
-| ResNet18 unstructured before training | SNIPit | 79.62 | 76.27 | 3.35 | 97.96 | 0.00 | 1.00 |
-| ResNet18 unstructured before training | LayerWiseSNIPit | 79.62 |  |  |  |  |  |
-| ResNet18 unstructured during training | SNIPitDuring | 79.62 | 79.78 | -0.16 | 97.96 | 0.00 | 1.00 |
-| ResNet18 unstructured during training | LayerWiseSNIPitDuring | 79.62 |  |  |  |  |  |
+| VGG16 empty | N/A | 87.82 | N/A | N/A | 0.00 | 0.00 | N/A |
+| resnet18 empty | N/A | 79.66 | N/A | N/A | 0.00 | 0.00 | N/A |
+| VGG16 structured before training | SNAPit | 87.82 | 84.93 | 2.89 | 99.24 | 93.01 | 10.51 |
+| VGG16 structured before training | LayerWiseSNAPit | 87.82 | 69.35 | 18.48 | 99.51 | 93.05 | 194.82 |
+| ResNet18 unstructured before training | SNIPit | 79.66 | 76.02 | 3.64 | 97.96 | 0.00 | 1.00 |
+| ResNet18 unstructured before training | LayerWiseSNIPit | 79.66 | 66.43 | 13.23 | 97.96 | 0.00 | 1.00 |
+| ResNet18 unstructured during training | SNIPitDuring | 79.66 | 79.67 | -0.01 | 97.96 | 0.00 | 1.00 |
+| ResNet18 unstructured during training | LayerWiseSNIPitDuring | 79.66 | 77.63 | 2.03 | 97.96 | 0.00 | 1.00 |
 
 ## 5. 对照目标
 
