@@ -1,12 +1,12 @@
 # 复现 CIFAR10 Baselines（L4）
 
-需要跑的实验只有这三组：
+需要跑的对比实验有三组：
 
-- `SNAPit` with `VGG16 + CIFAR10`
-- `SNIPit` with `ResNet18 + CIFAR10` before training
-- `SNIPitDuring` with `ResNet18 + CIFAR10` during training
+- `VGG16 + SNAPit` vs `VGG16 + LayerWiseSNAPit`
+- `ResNet18 + SNIPit` vs `ResNet18 + LayerWiseSNIPit`
+- `ResNet18 + SNIPitDuring` vs `ResNet18 + LayerWiseSNIPitDuring`
 
-为了计算 `accuracy drop`，需要对应跑两个未剪枝 baseline：
+为了计算 `accuracy drop`，额外跑两个未剪枝 reference：
 
 - `VGG16 + EmptyCrit`
 - `ResNet18 + EmptyCrit`
@@ -34,7 +34,7 @@ PY
 
 ## 2. 正式训练
 
-### VGG16 baseline
+### 2.1 未剪枝 reference
 
 ```bash
 python main.py \
@@ -49,7 +49,20 @@ python main.py \
   --run_name _vgg16_empty
 ```
 
-### VGG16 SNAPit
+```bash
+python main.py \
+  --model ResNet18 \
+  --data_set CIFAR10 \
+  --prune_criterion EmptyCrit \
+  --pruning_limit 0.0 \
+  --epochs 80 \
+  --device cuda \
+  --batch_size 256 \
+  --seed 333 \
+  --run_name _resnet18_empty
+```
+
+### 2.2 实验一：VGG16 structured pruning
 
 ```bash
 python main.py \
@@ -64,22 +77,20 @@ python main.py \
   --run_name _vgg16_snapit93
 ```
 
-### ResNet18 baseline
-
 ```bash
 python main.py \
-  --model ResNet18 \
+  --model VGG16 \
   --data_set CIFAR10 \
-  --prune_criterion EmptyCrit \
-  --pruning_limit 0.0 \
+  --prune_criterion LayerWiseSNAPit \
+  --pruning_limit 0.93 \
   --epochs 80 \
   --device cuda \
   --batch_size 256 \
   --seed 333 \
-  --run_name _resnet18_empty
+  --run_name _vgg16_layerwise_snapit93
 ```
 
-### ResNet18 SNIPit
+### 2.3 实验二：ResNet18 unstructured pruning before training
 
 ```bash
 python main.py \
@@ -95,7 +106,21 @@ python main.py \
   --run_name _resnet18_snipit98
 ```
 
-### ResNet18 SNIPitDuring
+```bash
+python main.py \
+  --model ResNet18 \
+  --data_set CIFAR10 \
+  --prune_criterion LayerWiseSNIPit \
+  --pruning_limit 0.98 \
+  --outer_layer_pruning \
+  --epochs 80 \
+  --device cuda \
+  --batch_size 256 \
+  --seed 333 \
+  --run_name _resnet18_layerwise_snipit98
+```
+
+### 2.4 实验三：ResNet18 unstructured pruning during training
 
 ```bash
 python main.py \
@@ -113,6 +138,22 @@ python main.py \
   --run_name _resnet18_snipitduring98
 ```
 
+```bash
+python main.py \
+  --model ResNet18 \
+  --data_set CIFAR10 \
+  --prune_criterion LayerWiseSNIPitDuring \
+  --pruning_limit 0.98 \
+  --outer_layer_pruning \
+  --epochs 80 \
+  --prune_delay 4 \
+  --prune_freq 4 \
+  --device cuda \
+  --batch_size 256 \
+  --seed 333 \
+  --run_name _resnet18_layerwise_snipitduring98
+```
+
 如果 `batch_size=256` 显存不足，就改成 `128`。
 
 ## 3. 找到结果目录
@@ -120,20 +161,26 @@ python main.py \
 ```bash
 ls -td gitignored/results/*_vgg16_empty | head -n 1
 ls -td gitignored/results/*_vgg16_snapit93 | head -n 1
+ls -td gitignored/results/*_vgg16_layerwise_snapit93 | head -n 1
 ls -td gitignored/results/*_resnet18_empty | head -n 1
 ls -td gitignored/results/*_resnet18_snipit98 | head -n 1
+ls -td gitignored/results/*_resnet18_layerwise_snipit98 | head -n 1
 ls -td gitignored/results/*_resnet18_snipitduring98 | head -n 1
+ls -td gitignored/results/*_resnet18_layerwise_snipitduring98 | head -n 1
 ```
 
 ## 4. 结果表格
 
-实验跑完后，把提取脚本输出的结果填到下面表格中：
+实验跑完后，把结果填到下面表格中：
 
-| Experiment | Baseline Acc (%) | Method Acc (%) | Accuracy Drop (pp) | Weight Sparsity (%) | Node Sparsity (%) | FLOPs Reduction (x) |
-|---|---:|---:|---:|---:|---:|---:|
-| VGG16 + SNAPit |  |  |  |  |  |  |
-| ResNet18 + SNIPit |  |  |  |  |  |  |
-| ResNet18 + SNIPitDuring |  |  |  |  |  |  |
+| Group | Method | Reference Acc (%) | Method Acc (%) | Accuracy Drop (pp) | Weight Sparsity (%) | Node Sparsity (%) | FLOPs Reduction (x) |
+|---|---|---:|---:|---:|---:|---:|---:|
+| VGG16 structured before training | SNAPit | 88.20 | 84.93 | 3.27 | 99.25 | 93.01 | 9.87 |
+| VGG16 structured before training | LayerWiseSNAPit | 88.20 |  |  |  |  |  |
+| ResNet18 unstructured before training | SNIPit | 79.62 | 76.27 | 3.35 | 97.96 | 0.00 | 1.00 |
+| ResNet18 unstructured before training | LayerWiseSNIPit | 79.62 |  |  |  |  |  |
+| ResNet18 unstructured during training | SNIPitDuring | 79.62 | 79.78 | -0.16 | 97.96 | 0.00 | 1.00 |
+| ResNet18 unstructured during training | LayerWiseSNIPitDuring | 79.62 |  |  |  |  |  |
 
 ## 5. 对照目标
 

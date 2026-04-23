@@ -72,6 +72,8 @@ FLIP_CHANCE = 0.2
 STRUCTURED_SINGLE_SHOT = [
     "SNAP",
     "SNAPit",
+    "LayerWiseSNAP",
+    "LayerWiseSNAPit",
     "StructuredRandom",
     "StructuredGRASP",
     "GateDecorators",
@@ -81,6 +83,10 @@ STRUCTURED_SINGLE_SHOT = [
 SINGLE_SHOT = [
     "SNIP",
     "SNIPit",
+    "LayerWiseSNIP",
+    "LayerWiseSNIPit",
+    "AdaptiveLayerWiseSNIP",
+    "AdaptiveLayerWiseSNIPit",
     "GRASP",
     "IterativeGRASP",
     "UnstructuredRandom"
@@ -88,6 +94,8 @@ SINGLE_SHOT = [
 SINGLE_SHOT += STRUCTURED_SINGLE_SHOT
 DURING_TRAINING = [
     "SNAPitDuring",
+    "LayerWiseSNIPitDuring",
+    "AdaptiveLayerWiseSNIPitDuring",
     "GateDecorators",
     "CNIPitDuring",
     "GroupHoyerSquare",
@@ -98,10 +106,18 @@ TIMEOUT = int(60 * 60 * 1.7)  # one hour and a 45 minutes max
 STACK_NAME = "command_stack"
 alias = {
     "SNAPit": "SNAP-it (before)",
+    "LayerWiseSNAP": "Layer-wise SNAP (before)",
+    "LayerWiseSNAPit": "Layer-wise SNAP-it (before)",
     "SNIPit": "SNIP-it (before)",
+    "LayerWiseSNIP": "Layer-wise SNIP (before)",
+    "LayerWiseSNIPit": "Layer-wise SNIP-it (before)",
+    "AdaptiveLayerWiseSNIP": "Adaptive layer-wise SNIP (before)",
+    "AdaptiveLayerWiseSNIPit": "Adaptive layer-wise SNIP-it (before)",
     "UnstructuredRandom": "Random (before)",
     "StructuredRandom": "Random (before) ",
     "SNIPitDuring": "SNIP-it (during)",
+    "LayerWiseSNIPitDuring": "Layer-wise SNIP-it (during)",
+    "AdaptiveLayerWiseSNIPitDuring": "Adaptive layer-wise SNIP-it (during)",
     "IMP": "IMP-global (during)",
     "L0": "L0 (during)",
     "GRASP": "GraSP (before)",
@@ -123,10 +139,18 @@ linestyles_times = {
 
 timing_names = {
     "SNAPit": "before",
+    "LayerWiseSNAP": "before",
+    "LayerWiseSNAPit": "before",
     "SNIPit": "before",
+    "LayerWiseSNIP": "before",
+    "LayerWiseSNIPit": "before",
+    "AdaptiveLayerWiseSNIP": "before",
+    "AdaptiveLayerWiseSNIPit": "before",
     "UnstructuredRandom": "before",
     "StructuredRandom": "before",
     "SNIPitDuring": "during",
+    "LayerWiseSNIPitDuring": "during",
+    "AdaptiveLayerWiseSNIPitDuring": "during",
     "IMP": "during",
     "L0": "during",
     "GRASP": "before",
@@ -141,10 +165,18 @@ timing_names = {
 
 color_per_method = {
     "SNAPit": "#1f77b4",
+    "LayerWiseSNAP": "#17becf",
+    "LayerWiseSNAPit": "#17becf",
     "SNIPit": "#d62728",
+    "LayerWiseSNIP": "#17becf",
+    "LayerWiseSNIPit": "#17becf",
+    "AdaptiveLayerWiseSNIP": "#bcbd22",
+    "AdaptiveLayerWiseSNIPit": "#bcbd22",
     "UnstructuredRandom": "#8c564b",
     "StructuredRandom": "#8c564b",
     "SNIPitDuring": "#1f77b4",
+    "LayerWiseSNIPitDuring": "#17becf",
+    "AdaptiveLayerWiseSNIPitDuring": "#bcbd22",
     "IMP": "#9467bd",
     "L0": "#d62728",
     "GRASP": "#ff7f0e",
