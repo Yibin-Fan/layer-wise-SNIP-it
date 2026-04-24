@@ -1,0 +1,54 @@
+
+########## ADAPTIVE LAYER-WISE RESULTS ##########
+
+
+==================================================
+vgg16_adaptive_layerwise_snapit93
+==================================================
+Run name:             2026-04-24_00.19.23_vgg16_adaptive_layerwise_snapit93
+Run dir:              gitignored/results/2026-04-24_00.19.23_vgg16_adaptive_layerwise_snapit93
+Best Accuracy (%):    85.22
+Final Accuracy (%):   84.76
+Final Loss:           0.6390
+Weight Sparsity (%):  99.20
+Node Sparsity (%):    93.02
+FLOPs / sample:       30924220
+Cumulative FLOPs:     1.23e+14
+GPU Time (s):         12.61
+Batch Time (s):       0.0046
+RAM Footprint (MB):   25.47
+Disk log10 size:      16.4403
+
+==================================================
+resnet18_adaptive_layerwise_snipit98
+==================================================
+Run name:             2026-04-24_00.26.38_resnet18_adaptive_layerwise_snipit98
+Run dir:              gitignored/results/2026-04-24_00.26.38_resnet18_adaptive_layerwise_snipit98
+Best Accuracy (%):    75.54
+Final Accuracy (%):   75.09
+Final Loss:           1.0100
+Weight Sparsity (%):  97.96
+Node Sparsity (%):    0.00
+FLOPs / sample:       38800136
+Cumulative FLOPs:     1.54e+14
+GPU Time (s):         16.65
+Batch Time (s):       0.0053
+RAM Footprint (MB):   255.87
+Disk log10 size:      15.9114
+
+==================================================
+resnet18_adaptive_layerwise_snipitduring98
+==================================================
+Run name:             2026-04-24_00.35.55_resnet18_adaptive_layerwise_snipitduring98
+Run dir:              gitignored/results/2026-04-24_00.35.55_resnet18_adaptive_layerwise_snipitduring98
+Best Accuracy (%):    80.04
+Final Accuracy (%):   78.96
+Final Loss:           0.9582
+Weight Sparsity (%):  97.96
+Node Sparsity (%):    0.00
+FLOPs / sample:       38800136
+Cumulative FLOPs:     1.54e+14
+GPU Time (s):         16.96
+Batch Time (s):       0.0054
+RAM Footprint (MB):   351.84
+Disk log10 size:      15.9114
